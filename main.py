@@ -870,6 +870,9 @@ async def kick(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"❌ Failed to kick user:\n{e}"
         )
+        
+if update.message is None:
+    return
 
 async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat = update.effective_chat
