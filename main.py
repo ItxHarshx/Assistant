@@ -1051,12 +1051,12 @@ async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     )
                 except Exception:
                     pass
-
-    except Exception as e:
-        await update.message.reply_text(
-            f"❌ Failed to unban user:\n{e}"
-        )
-
+                
+                except Exception as e:
+                    await update.message.reply_text(
+                        f"❌ Failed to unban user:\n{e}"
+                    )
+                    
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat = update.effective_chat
 
