@@ -1241,7 +1241,7 @@ async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         else:
             await update.message.reply_text(
-                "Reply to a user's message or use:\n
+                "Reply to a user's message or use:\n"
                 "/demote <user_id>"
             )
             return
