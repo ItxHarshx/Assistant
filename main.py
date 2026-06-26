@@ -1199,15 +1199,11 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     if admin_title:
         try:
-            member = await chat.get_member(target.id)
-            
-            if member.status == "administrator":
-                await context.bot.set_chat_administrator_custom_title(
-                    chat_id=chat.id,
-                    user_id=target.id,
-                    custom_title=admin_title
-                )
-        
+            await context.bot.set_chat_administrator_custom_title(
+                chat_id=chat.id,
+                user_id=target.id,
+                custom_title=admin_title
+            )
         except Exception as e:
             print(f"TITLE ERROR: {e}")
             
@@ -1220,7 +1216,10 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 text += f"🏷️ Title: <code>{admin_title}</code>\n"
                 text += f"🛡️ By: {update.effective_user.mention_html()}"
                 
-                await update.message.reply_html(text)
+                await update.message.reply_text(
+                    text,
+                    parse_mode="HTML"
+                )
 
 
 async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
