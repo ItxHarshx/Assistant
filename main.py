@@ -1195,16 +1195,17 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         can_edit_messages=False,
         is_anonymous=False,
     )
-    
-    '''if admin_title:
+
+    if admin_title:
         try:
             await context.bot.set_chat_administrator_custom_title(
                 chat_id=chat.id,
                 user_id=target.id,
                 custom_title=admin_title
             )
+        
         except Exception as e:
-            print(f"TITLE ERROR: {e}")'''
+            print(f"TITLE ERROR: {e}")
     
     text = (
         f"👮 <b>User Promoted</b>\n\n"
