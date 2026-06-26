@@ -1287,8 +1287,9 @@ async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_id=target.id,
             custom_title=""
         )
-        except:
-            pass
+        
+    except:
+        pass
 
     await context.bot.promote_chat_member(
         chat_id=chat.id,
