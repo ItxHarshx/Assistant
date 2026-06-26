@@ -1021,15 +1021,15 @@ async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(
                 "❌ This user is not banned."
             )
-            return
+        return
     except Exception:
         pass
-
-    try:
-        await context.bot.unban_chat_member(
-            chat_id=chat.id,
-            user_id=int(user_id)
-        )
+        
+        try:
+            await context.bot.unban_chat_member(
+                chat_id=chat.id,
+                user_id=int(user_id)
+            )
 
         await update.message.reply_html(
     f'User has been unbanned successfully.'
