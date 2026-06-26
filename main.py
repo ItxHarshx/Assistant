@@ -1215,7 +1215,6 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if admin_title:
     text += f"🏷️ Title: <code>{admin_title}</code>\n"
     text += f"🛡️ By: {update.effective_user.mention_html()}"
-    
     await update.message.reply_html(text)
 
 
