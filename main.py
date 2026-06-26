@@ -1238,13 +1238,13 @@ async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "Invalid user ID."
             )
             return
-
-    else:
-        await update.message.reply_text(
-            "Reply to a user's message or use:\n"
-            "/demote <user_id>"
-        )
-        return
+        
+        else:
+            await update.message.reply_text(
+                "Reply to a user's message or use:\n
+                "/demote <user_id>"
+            )
+            return
 
     member = await chat.get_member(target.id)
 
