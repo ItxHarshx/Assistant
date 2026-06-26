@@ -1030,27 +1030,27 @@ async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 chat_id=chat.id,
                 user_id=int(user_id)
             )
-
-        await update.message.reply_html(
-    f'User has been unbanned successfully.'
-)
-
-        log_text = (
-            f"🚨 <u><b>UNBAN ACTION</b></u>\n\n"
-            f"<b>• User ID:</b> <code>{user_id}</code>\n"
-            f"<b>• Unbanned By:</b> {admin.mention_html()}\n"
-            f"<b>• At:</b> <i>{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</i>"
-        )
-
-        for sudo_id in SUDO_USERS:
-            try:
-                await context.bot.send_message(
-                    chat_id=sudo_id,
-                    text=log_text,
-                    parse_mode="HTML"
+            
+            await update.message.reply_html(
+                f'User has been unbanned successfully.'
+            )
+                
+                log_text = (
+                f"🚨 <u><b>UNBAN ACTION</b></u>\n\n"
+                f"<b>• User ID:</b> <code>{user_id}</code>\n"
+                f"<b>• Unbanned By:</b> {admin.mention_html()}\n"
+                f"<b>• At:</b> <i>{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</i>"
                 )
-            except Exception:
-                pass
+            
+            for sudo_id in SUDO_USERS:
+                try:
+                    await context.bot.send_message(
+                        chat_id=sudo_id,
+                        text=log_text,
+                        parse_mode="HTML"
+                    )
+                except Exception:
+                    pass
 
     except Exception as e:
         await update.message.reply_text(
