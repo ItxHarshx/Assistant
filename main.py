@@ -1034,8 +1034,8 @@ async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_html(
                 f'User has been unbanned successfully.'
             )
-                
-                log_text = (
+            
+            log_text = (
                 f"🚨 <u><b>UNBAN ACTION</b></u>\n\n"
                 f"<b>• User ID:</b> <code>{user_id}</code>\n"
                 f"<b>• Unbanned By:</b> {admin.mention_html()}\n"
