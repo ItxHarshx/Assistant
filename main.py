@@ -1211,15 +1211,12 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👮 <b>User Promoted</b>\n\n"
         f"👤 User: {target.mention_html()}\n"
     )
-    
-    if admin_title:
-        text += f"🏷️ Title: <code>{admin_title}</code>\n"
-        text += f"🛡️ By: {update.effective_user.mention_html()}"
-        
-        await update.message.reply_text(
-            text,
-            parse_mode="HTML"
-        )
+
+if admin_title:
+    text += f"🏷️ Title: <code>{admin_title}</code>\n"
+    text += f"🛡️ By: {update.effective_user.mention_html()}"
+
+await update.message.reply_html(text)
 
 
 async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
