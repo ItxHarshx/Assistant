@@ -1208,18 +1208,18 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     custom_title=admin_title
                 )
         
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"TITLE ERROR: {e}")
             
             text = (
                 f"👮 <b>User Promoted</b>\n\n"
                 f"👤 User: {target.mention_html()}\n"
-                )
+            )
             
             if admin_title:
                 text += f"🏷️ Title: <code>{admin_title}</code>\n"
-                
                 text += f"🛡️ By: {update.effective_user.mention_html()}"
+                
                 await update.message.reply_html(text)
 
 
