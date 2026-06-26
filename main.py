@@ -1110,27 +1110,27 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "❌ You need the 'Add New Admins' permission."
         )
         return
-
+        
     if update.message.reply_to_message:
-    target = update.message.reply_to_message.from_user
-    admin_title = " ".join(context.args)
-
-elif context.args:
-    try:
-        target = await context.bot.get_chat(int(context.args[0]))
-        admin_title = " ".join(context.args[1:])
-    except:
-        await update.message.reply_text(
-            "Invalid user ID."
-        )
-        return
-
+        target = update.message.reply_to_message.from_user
+        admin_title = " ".join(context.args)
+    
+    elif context.args:
+        try:
+            target = await context.bot.get_chat(int(context.args[0]))
+            admin_title = " ".join(context.args[1:])
+            except:
+                await update.message.reply_text(
+                    "Invalid user ID."
+                )
+                return
+        
     else:
-        await update.message.reply_text(
-            "Reply to a user's message or use:\n"
-            "/promote <user_id>"
-        )
-        return
+await update.message.reply_text(
+    "Reply to a user's message or use:\n"
+    "/promote <user_id>"
+)
+return
 
     member = await chat.get_member(target.id)
 
