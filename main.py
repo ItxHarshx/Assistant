@@ -1177,12 +1177,13 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "I am already an admin."
         )
         return
-
+        
     admin_title = admin_title[:16]
-
+    
     await context.bot.promote_chat_member(
         chat_id=chat.id,
         user_id=target.id,
+        can_manage_chat=True,
         can_delete_messages=True,
         can_pin_messages=True,
         can_manage_video_chats=False,
@@ -1195,24 +1196,31 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         can_edit_messages=False,
         is_anonymous=False,
     )
-
+    
     if admin_title:
-        await context.bot.set_chat_administrator_custom_title(
-            chat_id=chat.id,
-            user_id=target.id,
-            custom_title=admin_title
-        )
-        
-        text = (
-            f"👮 <b>User Promoted</b>\n\n"
-            f"👤 User: {target.mention_html()}\n"
-        )
-        
-        if admin_title:
-            text += f"🏷️ Title: <code>{admin_title}</code>\n"
-            text += f"🛡️ By: {update.effective_user.mention_html()}"
+        try:
+            member = await chat.get_member(target.id)
             
-            await update.message.reply_html(text)
+            if member.status == "administrator":
+                await context.bot.set_chat_administrator_custom_title(
+                    chat_id=chat.id,
+                    user_id=target.id,
+                    custom_title=admin_title
+                )
+        
+        except Exception:
+            pass
+            
+            text = (
+                f"👮 <b>User Promoted</b>\n\n"
+                f"👤 User: {target.mention_html()}\n"
+                )
+            
+            if admin_title:
+                text += f"🏷️ Title: <code>{admin_title}</code>\n"
+                
+                text += f"🛡️ By: {update.effective_user.mention_html()}"
+                await update.message.reply_html(text)
 
 
 async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
