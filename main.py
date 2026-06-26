@@ -1216,7 +1216,11 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text += f"🏷️ Title: <code>{admin_title}</code>\n"
         text += f"🛡️ By: {update.effective_user.mention_html()}"
         
-        await update.message.reply_html(text)
+        await context.bot.send_message(
+            chat_id=chat.id,
+            text=text,
+            parse_mode="HTML"
+        )
 
 
 async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
