@@ -1112,16 +1112,18 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if update.message.reply_to_message:
-        target = update.message.reply_to_message.from_user
+    target = update.message.reply_to_message.from_user
+    admin_title = " ".join(context.args)
 
-    elif context.args:
-        try:
-            target = await context.bot.get_chat(int(context.args[0]))
-        except:
-            await update.message.reply_text(
-                "Invalid user ID."
-            )
-            return
+elif context.args:
+    try:
+        target = await context.bot.get_chat(int(context.args[0]))
+        admin_title = " ".join(context.args[1:])
+    except:
+        await update.message.reply_text(
+            "Invalid user ID."
+        )
+        return
 
     else:
         await update.message.reply_text(
@@ -1150,6 +1152,8 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
+admin_title = admin_title[:16]
+
     await context.bot.promote_chat_member(
         chat_id=chat.id,
         user_id=target.id,
@@ -1166,11 +1170,24 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         is_anonymous=False,
     )
 
-    await update.message.reply_html(
-        f"👮 <b>User Promoted</b>\n\n"
-        f"👤 User: {target.mention_html()}\n"
-        f"🛡️ By: {update.effective_user.mention_html()}"
+if admin_title:
+    await context.bot.set_chat_administrator_custom_title(
+        chat_id=chat.id,
+        user_id=target.id,
+        custom_title=admin_title
     )
+
+    text = (
+    f"👮 <b>User Promoted</b>\n\n"
+    f"👤 User: {target.mention_html()}\n"
+)
+
+if admin_title:
+    text += f"🏷️ Title: <code>{admin_title}</code>\n"
+
+text += f"🛡️ By: {update.effective_user.mention_html()}"
+
+await update.message.reply_html(text)
 
 
 async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1239,6 +1256,16 @@ async def demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
+    try:
+    await context.bot.set_chat_administrator_custom_title(
+        chat_id=chat.id,
+        user_id=target.id,
+        custom_title=""
+    )
+except:
+    pass
+
+    
     await context.bot.promote_chat_member(
         chat_id=chat.id,
         user_id=target.id,
