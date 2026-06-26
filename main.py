@@ -1183,7 +1183,6 @@ async def promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.promote_chat_member(
         chat_id=chat.id,
         user_id=target.id,
-        can_manage_chat=True,
         can_delete_messages=True,
         can_pin_messages=True,
         can_manage_video_chats=False,
